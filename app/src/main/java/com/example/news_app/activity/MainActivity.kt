@@ -1,11 +1,10 @@
-package com.example.news_app
+package com.example.news_app.activity
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.news_app.NewsService
+import com.example.news_app.R
 import com.example.news_app.model.News
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getNews() {
         val news = NewsService.instance.getHeadLines("us",1)
-        news.enqueue(object : Callback<News>{
+        news.enqueue(object : Callback<News> {
             override fun onResponse(
                 call : Call<News?> ,
                 success : Response<News?>
