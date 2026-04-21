@@ -1,29 +1,45 @@
 package com.example.news_app.adapter
 
+
+import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.news_app.R
+import com.example.news_app.model.Article
 
-class NewsAdapter(): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+
+class NewsAdapter(val context : Context,val article : List<Article>): RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>(){
     override fun onCreateViewHolder(
-        p0 : ViewGroup ,
-        p1 : Int
-    ) : NewsViewHolder {
-        TODO("Not yet implemented")
+        parent : ViewGroup ,
+        viewType : Int
+    ) : ArticleViewHolder {
+        val  view= LayoutInflater.from(context).inflate(R.layout.item_layout,parent,false)
+        return ArticleViewHolder(view)
     }
 
     override fun onBindViewHolder(
-        p0 : NewsViewHolder ,
-        p1 : Int
+        holder : ArticleViewHolder ,
+        position : Int
     ) {
-        TODO("Not yet implemented")
+      val articles=article[position]
+
+        holder.titleText.text=articles.title
+        holder.descriptionText.text=articles.description
+        Glide.with(context).load(articles.urlToImage).into(holder.imageView)
     }
 
     override fun getItemCount() : Int {
-        TODO("Not yet implemented")
+     return article.size
     }
 
-    inner class NewsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-
+    class ArticleViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
+        val imageView=itemView.findViewById<ImageView>(R.id.newsImage)
+        val titleText=itemView.findViewById<TextView>(R.id.newsTitle)
+        val descriptionText=itemView.findViewById<TextView>(R.id.newsDescription)
     }
 }
